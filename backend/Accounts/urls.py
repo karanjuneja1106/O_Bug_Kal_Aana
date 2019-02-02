@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     url(r'^createUser/$', views.UserView.as_view(), name='createUser'),
-    url(r'^loginUser/$', views.UserLoginView.as_view(), name='loginUser')
+    url(r'^loginUser/$', views.UserLoginView.as_view(), name='loginUser'),
+    url(r'^logoutUser/$', views.logoutUser, name="logoutUser"),
 ]

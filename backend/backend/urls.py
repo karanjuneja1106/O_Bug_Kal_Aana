@@ -15,8 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
+from backend import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/Accounts/', include('Accounts.urls'))
+    url(r'^api/Accounts/', include('Accounts.urls')),
+    url(r'^api/Parking/', include('Parking.urls'))
 ]
+
+urlpatterns += [
+    # ... the rest of your URLconf goes here ...
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

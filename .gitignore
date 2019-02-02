@@ -63,3 +63,13 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+
+*.pyc
+
+backend/Parking/migrations/
+
+backend/qrcode/
+
+backend/db\.sqlite3
+
+\.vscode/
