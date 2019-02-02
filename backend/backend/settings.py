@@ -15,7 +15,35 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+CORS_ORIGIN_WHITELIST = (
+    'localhost',
+    '127.0.0.1'
+)
 
+CORS_ORIGIN_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'Access-Control-Allow-Headers',
+    'Access-Control-Allow-Origin',
+    'Access-Control-Allow-Credentials',
+    'contentType',
+    'dataType'
+)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -37,6 +65,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Accounts',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +80,34 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 10,
+    'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework_json_api.pagination.JsonApiPageNumberPagination',
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework_json_api.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser'
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework_json_api.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework_json_api.filters.QueryParameterValidationFilter',
+        'rest_framework_json_api.filters.OrderingFilter',
+        'rest_framework_json_api.django_filters.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+    ),
+    'SEARCH_PARAM': 'filter[search]',
+    'TEST_REQUEST_RENDERER_CLASSES': (
+        'rest_framework_json_api.renderers.JSONRenderer',
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'vnd.api+json'
+}
 
 TEMPLATES = [
     {
