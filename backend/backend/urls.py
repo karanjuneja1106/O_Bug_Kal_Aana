@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/Accounts/', include('Accounts.urls')),
-    url(r'^api/Parking/', include('Parking.urls'))
+    # url(r'^api/Parking/', include('Parking.urls')),
+    url(r'^api/Garbage', include('Garbage.urls'))
 ]
 
 urlpatterns += [

@@ -15,7 +15,7 @@ class Park(models.Model):
     parkingLot = models.ForeignKey(ParkingLot, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     park_time = models.DateTimeField(auto_now=True)
-    qrcode = models.ImageField(upload_to='static/qrcode', blank=True, null=True)
+    qrcode = models.ImageField(upload_to='qrcode', blank=True, null=True)
 
     def save(self, *args, **kwargs):
         qr = qrcode.QRCode(

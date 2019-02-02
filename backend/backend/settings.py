@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Accounts',
     'Parking',
+    'Garbage',
     'qr_code',
     'rest_framework'
 ]
