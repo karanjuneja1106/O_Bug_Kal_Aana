@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Barcode Reader</string>
+    <string name="title_activity_send_data">sendDataActivity</string>
+</resources>

@@ -1,2 +1,2 @@
-# DotSlash---O_Bug_Kal_Aana
+# DotSlash - O Bug Kal Aana
 Hack developed during DotSlash 2019
