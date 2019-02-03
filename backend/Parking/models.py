@@ -10,10 +10,15 @@ class ParkingLot(models.Model):
     latitude = models.FloatField(null=False, blank=False)
 
 
+class PotHole(models.Model):
+    longitude = models.FloatField(null=False, blank=False)
+    latitude = models.FloatField(null=False, blank=False)
+
+
 class Park(models.Model):
     parking_number = models.PositiveIntegerField()
     parkingLot = models.ForeignKey(ParkingLot, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     park_time = models.DateTimeField(auto_now=True)
     qrcode = models.ImageField(upload_to='qrcode', blank=True, null=True)
 
@@ -24,8 +29,9 @@ class Park(models.Model):
             box_size=10,
             border=4,
         )
-        dataToShow = str(self.parkingLot.name)+'\n'+str(self.parking_number) + '\n' + 'Latitude: ' + \
-            str(self.parkingLot.latitude) + '\n'+'Longitude: '+str(self.parkingLot.latitude)
+        dataToShow = str(self.parkingLot.name)+str(self.parking_number) + 'Latitude: ' + \
+            str(self.parkingLot.latitude) + 'Longitude: ' + \
+            str(self.parkingLot.latitude)+"User :"+str(self.user)
         qr.add_data(dataToShow)
         qr.make(fit=True)
 

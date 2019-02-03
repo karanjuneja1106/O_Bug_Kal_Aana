@@ -5,4 +5,5 @@ app_name = "Parking"
 
 urlpatterns = [
     url(r'uploadGarbage/$', views.GarbageView.as_view(), name="uploadGarbage"),
+    url(r'detectGarbage/$', views.detectGarbage, name="detectGarbage"),
 ]

@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+import json
 
 # Create your views here.
 
@@ -13,16 +14,13 @@ class UserLoginView(APIView):
     queryset = User.objects.all()
 
     def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
-        print(username,password)
+        username = request.data["username"]
+        password = request.data["password"]
         if username is None or password is None:
             return Response({'error': 'Please provide both username and password'}, status=status.HTTP_204_NO_CONTENT)
         user = authenticate(username=username, password=password)
-        print(user)
         if not user:
             return Response('0', status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
-        print(login(request, user))
         return Response('1', status.HTTP_200_OK)
 
 

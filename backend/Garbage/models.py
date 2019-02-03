@@ -6,3 +6,7 @@ class Garbage(models.Model):
     address = models.CharField(max_length=1000)
     longitude = models.FloatField(null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
+
+    def __str__(self):
+        return self.address
+

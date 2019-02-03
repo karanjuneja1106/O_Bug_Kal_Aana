@@ -17,12 +17,19 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from backend import settings
 from django.conf.urls.static import static
+from django.http import HttpResponse
+
+
+def testView(request):
+    return HttpResponse("test")
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/Accounts/', include('Accounts.urls')),
-    # url(r'^api/Parking/', include('Parking.urls')),
-    url(r'^api/Garbage', include('Garbage.urls'))
+    url(r'^api/Parking/', include('Parking.urls')),
+    url(r'^api/Garbage', include('Garbage.urls')),
+    url(r'^api/test', testView, name="test")
 ]
 
 urlpatterns += [
