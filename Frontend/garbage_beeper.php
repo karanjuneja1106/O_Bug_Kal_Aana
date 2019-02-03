@@ -72,25 +72,13 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Home</span>
+          <span class="mdl-layout-title">Garbage Beeper</span>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
             <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
               <i class="material-icons">search</i>
             </label>
-            <div class="mdl-textfield__expandable-holder">
-              <input class="mdl-textfield__input" type="text" id="search">
-              <label class="mdl-textfield__label" for="search">Enter your query...</label>
-            </div>
           </div>
-          <button class="mdl-button mdl-js-button mdl-js-rippl-effect mdl-button--icon" id="hdrbtn">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-            <li class="mdl-menu__item">About</li>
-            <li class="mdl-menu__item">Contact</li>
-            <li class="mdl-menu__item">Legal information</li>
-          </ul>
         </div>
       </header>
       <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
@@ -98,30 +86,13 @@
           <img src="images/user.jpg" class="demo-avatar">
           <div class="demo-avatar-dropdown">
             <span>hello@example.com</span>
-            <div class="mdl-layout-spacer"></div>
-            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-              <i class="material-icons" role="presentation">arrow_drop_down</i>
-              <span class="visuallyhidden">Accounts</span>
-            </button>
-            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-              <li class="mdl-menu__item">hello@example.com</li>
-              <li class="mdl-menu__item">info@example.com</li>
-              <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
-            </ul>
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+          <a class="mdl-navigation__link" href="index.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
           <a class="mdl-navigation__link" href="garbage_beeper.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Garbage Beeper</a>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Pathole Beeper</a>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Spam</a>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Forums</a>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Updates</a>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_offer</i>Promos</a>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Purchases</a>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Social</a>
-          <div class="mdl-layout-spacer"></div>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
+          <a class="mdl-navigation__link" href="parking_beeper.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Parking Beeper</a>
+          <a class="mdl-navigation__link" href="pothole_beeper.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Pothole Beeper</a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
@@ -181,15 +152,14 @@
           </g>
         </defs>
       </svg>
-      <a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/dashboard/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white">View Source</a>
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   </body>
         <script>
-         // Creating map options
-         var mapOptions = {
+          var mapOptions = {
             center: [21.1702, 72.8311],
-            zoom: 11
+            zoom: 5
          }
+         // Creating map options
          // Creating a map object
          var map = new L.map('map', mapOptions);
          
@@ -199,13 +169,23 @@
          // Adding layer to the map
          map.addLayer(layer);
          
+         
          // Creating a marker
-         var marker = L.marker([21.1674, 72.7851]);
-         var marker1 = L.marker([21.2702, 72.9311]);
-
-         // Adding marker to the map
-         marker.addTo(map);
-         marker1.addTo(map);
+         
+         // var marker = L.marker([21.2702, 72.9311]);
+         // marker.addTo(map);
+         $(document).ready(function(){
+            $.ajax({url:"http://172.23.0.57:8000/api/Garbage/uploadGarbage/",type:"get",success:function(response){
+              var array = response["data"]["garbage"];
+              console.log(array);
+              array.forEach(function(element){
+                var marker = L.marker([element['latitude'],element['longitude']]);
+                console.log(element['latitude']);
+                marker.addTo(map);
+                marker.bindPopup("<img width = 150px height = 100px src = 'http://172.23.0.57:8000"+element['garbage_img']+"'/><p><b>Address:</b>"+element['address']);
+              });
+            }});
+          });
       </script>
 
 </html>

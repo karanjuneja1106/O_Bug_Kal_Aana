@@ -1,3 +1,15 @@
+<?php
+  
+  $vacancies = array(1, 1, 1, 1, 1);
+  $len = count($vacancies);
+  $sum = 0;
+  foreach ($vacancies as $vivek) {
+    $sum += $vivek;
+  }
+    $page = $_SERVER['PHP_SELF'];
+    $sec = "5";
+?>
+
 <!doctype html>
 <!--
   Material Design Lite
@@ -28,11 +40,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+      <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -69,31 +78,27 @@
       margin-bottom: 40px;
       z-index: 900;
     }
+    .img-fluid {
+      max-width: 100%;
+      height: auto;
+    }
+    .glyphicon {
+      font-size: 25px;
+    }
+
     </style>
   </head>
   <body>
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Home</span>
+          <span class="mdl-layout-title">Parking Beeper</span>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
             <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
               <i class="material-icons">search</i>
             </label>
-            <div class="mdl-textfield__expandable-holder">
-              <input class="mdl-textfield__input" type="text" id="search">
-              <label class="mdl-textfield__label" for="search">Enter your query...</label>
-            </div>
           </div>
-          <button class="mdl-button mdl-js-button mdl-js-rippl-effect mdl-button--icon" id="hdrbtn">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-            <li class="mdl-menu__item">About</li>
-            <li class="mdl-menu__item">Contact</li>
-            <li class="mdl-menu__item">Legal information</li>
-          </ul>
         </div>
       </header>
       <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
@@ -101,17 +106,99 @@
           <img src="images/user.jpg" class="demo-avatar">
           <div class="demo-avatar-dropdown">
             <span>hello@example.com</span>
-            <!-- <div class="mdl-layout-spacer"></div> -->
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
           <a class="mdl-navigation__link" href="index.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
           <a class="mdl-navigation__link" href="garbage_beeper.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Garbage Beeper</a>
           <a class="mdl-navigation__link" href="parking_beeper.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Parking Beeper</a>
-          <a class="mdl-navigation__link" href="pothole_beeper.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Pathole Beeper</a>
+          <a class="mdl-navigation__link" href="pothole_beeper.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Pothole Beeper</a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
+        <div>
+          <h5 class="text-center"><?php echo "The number of vacancies is " . $sum; ?></h5>
+        </div>
+        <div class="container">
+          <div class="row">
+            <br>
+            <div class="col-lg-4 float-left img-responsive img-fluid">
+              <img src="http://172.23.0.57:8000/media/park-5.png" style="max-width: 300px; max-height: 300px;">
+              <div style="text-align: center; font-weight: bold;">SLOT-1</div>
+              <?php
+                if ($vacancies[0] == 1) {
+                  echo "<span class='glyphicon glyphicon-ok-circle' style = 'color:green;'></span>";
+                }
+                else{
+                  echo "<span class='glyphicon glyphicon-remove-circle' style = 'color:red;'></span>";
+                }
+              ?>
+            </div>
+
+            <div class="col-lg-4 float-left img-responsive img-fluid">
+              <img src="http://172.23.0.57:8000/media/park-6.png" style="max-width: 300px; max-height: 300px;">
+              <div style="text-align: center; font-weight: bold;">SLOT-2</div>
+              <?php
+                if ($vacancies[1] == 1) {
+                  echo "<span class='glyphicon glyphicon-ok-circle' style = 'color:green;'></span>";
+                }
+                else{
+                  echo "<span class='glyphicon glyphicon-remove-circle' style = 'color:red;'></span>";
+                }
+              ?>
+            </div>
+
+            <div class="col-lg-4 float-left img-responsive img-fluid">
+              <img src="http://172.23.0.57:8000/media/park-7.png" style="max-width: 300px; max-height: 300px;">
+              <div style="text-align: center; font-weight: bold;">SLOT-3</div>
+              <?php
+                if ($vacancies[2] == 1) {
+                  echo "<span class='glyphicon glyphicon-ok-circle' style = 'color:green;'></span>";
+                }
+                else{
+                  echo "<span class='glyphicon glyphicon-remove-circle' style = 'color:red;'></span>";
+                }
+              ?>
+            </div>
+          </div>
+
+          <div class="row">
+            <br>
+            <div class="col-lg-4 float-left img-responsive">
+              <img src="http://172.23.0.57:8000/media/park-8.png" style="max-width: 300px; max-height: 300px;">
+              <div style="text-align: center; font-weight: bold;">SLOT-4</div>
+              <?php
+                if ($vacancies[3] == 1) {
+                  echo "<span class='glyphicon glyphicon-ok-circle' style = 'color:green;'></span>";
+                }
+                else{
+                  echo "<span class='glyphicon glyphicon-remove-circle' style = 'color:red;'></span>";
+                }
+              ?>
+            </div>
+
+            <div class="col-lg-4 float-left img-responsive pull-right">
+              <img src="http://172.23.0.57:8000/media/park-9.png" style="max-width: 300px; max-height: 300px;">
+              <div style="text-align: center; font-weight: bold;">SLOT-5</div>
+              <?php
+                if ($vacancies[4] == 1) {
+                  echo "<span class='glyphicon glyphicon-ok-circle' style = 'color:green;'></span>";
+                }
+                else{
+                  echo "<span class='glyphicon glyphicon-remove-circle' style = 'color:red;'></span>";
+                }
+              ?>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4 text-center img-responsive" style="margin-left: 33.33%">
+              <img src="http://172.23.0.57:8000/media/park-10.png" style="max-width: 300px; max-height: 300px;">
+              <p style="text-align: center; font-weight: bold;">EXIT</p>
+            </div>
+          </div>
+
+        </div>
       </main>
     </div>
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" style="position: fixed; left: -1000px; height: -1000px;">
@@ -152,11 +239,11 @@
             </g>
             <g id="Layer_5">
               <polygon opacity="0.36" stroke-miterlimit="10" points="0,223.3 48,138.5 154.7,169 211,88.5
-              294.5,80.5 380,165.2 437,75.5 469.5,223.3 	"/>
+              294.5,80.5 380,165.2 437,75.5 469.5,223.3   "/>
             </g>
             <g id="Layer_4">
               <polygon stroke-miterlimit="10" points="469.3,222.7 1,222.7 48.7,166.7 155.7,188.3 212,132.7
-              296.7,128 380.7,184.3 436.7,125 	"/>
+              296.7,128 380.7,184.3 436.7,125   "/>
             </g>
           </g>
         </defs>

@@ -28,11 +28,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+      <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -75,25 +72,13 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Home</span>
+          <span class="mdl-layout-title">Pothole Beeper</span>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
             <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
               <i class="material-icons">search</i>
             </label>
-            <div class="mdl-textfield__expandable-holder">
-              <input class="mdl-textfield__input" type="text" id="search">
-              <label class="mdl-textfield__label" for="search">Enter your query...</label>
-            </div>
           </div>
-          <button class="mdl-button mdl-js-button mdl-js-rippl-effect mdl-button--icon" id="hdrbtn">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-            <li class="mdl-menu__item">About</li>
-            <li class="mdl-menu__item">Contact</li>
-            <li class="mdl-menu__item">Legal information</li>
-          </ul>
         </div>
       </header>
       <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
@@ -101,17 +86,23 @@
           <img src="images/user.jpg" class="demo-avatar">
           <div class="demo-avatar-dropdown">
             <span>hello@example.com</span>
-            <!-- <div class="mdl-layout-spacer"></div> -->
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
           <a class="mdl-navigation__link" href="index.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
           <a class="mdl-navigation__link" href="garbage_beeper.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Garbage Beeper</a>
           <a class="mdl-navigation__link" href="parking_beeper.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Parking Beeper</a>
-          <a class="mdl-navigation__link" href="pothole_beeper.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Pathole Beeper</a>
+          <a class="mdl-navigation__link" href="pothole_beeper.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Pothole Beeper</a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div id = "map" style = "width:1900px; height:1000px; margin-left: -55px;"></div>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" style="position: fixed; left: -1000px; height: -1000px;">
@@ -152,15 +143,45 @@
             </g>
             <g id="Layer_5">
               <polygon opacity="0.36" stroke-miterlimit="10" points="0,223.3 48,138.5 154.7,169 211,88.5
-              294.5,80.5 380,165.2 437,75.5 469.5,223.3 	"/>
+              294.5,80.5 380,165.2 437,75.5 469.5,223.3   "/>
             </g>
             <g id="Layer_4">
               <polygon stroke-miterlimit="10" points="469.3,222.7 1,222.7 48.7,166.7 155.7,188.3 212,132.7
-              296.7,128 380.7,184.3 436.7,125 	"/>
+              296.7,128 380.7,184.3 436.7,125   "/>
             </g>
           </g>
         </defs>
       </svg>
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   </body>
+      <script>
+        var mapOptions = {
+          center: [21.1702, 72.8311],
+          zoom: 5
+       }
+       // Creating map options
+       // Creating a map object
+       var map = new L.map('map', mapOptions);
+       
+       // Creating a Layer object
+       var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+       
+       // Adding layer to the map
+       map.addLayer(layer);
+       
+       // Creating a marker
+       // var marker = L.marker([21.2702, 72.9311]);
+       // marker.addTo(map);
+       $(document).ready(function(){
+          $.ajax({url:"http://172.23.0.57:8000/api/Parking/listPothole/",type:"get",success:function(response){
+            var array = response["data"];//["attributes"];
+            array.forEach(function(element){
+              var marker = L.marker([element['attributes']['latitude'],element['attributes']['longitude']]);
+              // console.log(element['attributes']['latitude'], element['attributes']['longitude']);
+              // marker.bindPopup('<p>latitude :- </p>'element['attributes']['latitude']).openPopup();
+              marker.addTo(map);
+            });
+          }});
+        });
+    </script>
 </html>
